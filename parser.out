@@ -1,0 +1,260 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    GT
+
+Grammar
+
+Rule 0     S' -> statement
+Rule 1     statement -> SELECT ID FROM ID WHERE expression
+Rule 2     statement -> INSERT INTO ID VALUES expression
+Rule 3     statement -> UPDATE ID SET ID VALUES expression
+Rule 4     statement -> DELETE FROM ID WHERE expression
+Rule 5     expression -> ID
+Rule 6     expression -> NUMBER
+Rule 7     expression -> STRING
+
+Terminals, with rules where they appear
+
+DELETE               : 4
+FROM                 : 1 4
+GT                   : 
+ID                   : 1 1 2 3 3 4 5
+INSERT               : 2
+INTO                 : 2
+NUMBER               : 6
+SELECT               : 1
+SET                  : 3
+STRING               : 7
+UPDATE               : 3
+VALUES               : 2 3
+WHERE                : 1 4
+error                : 
+
+Nonterminals, with rules where they appear
+
+expression           : 1 2 3 4
+statement            : 0
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . statement
+    (1) statement -> . SELECT ID FROM ID WHERE expression
+    (2) statement -> . INSERT INTO ID VALUES expression
+    (3) statement -> . UPDATE ID SET ID VALUES expression
+    (4) statement -> . DELETE FROM ID WHERE expression
+
+    SELECT          shift and go to state 2
+    INSERT          shift and go to state 3
+    UPDATE          shift and go to state 4
+    DELETE          shift and go to state 5
+
+    statement                      shift and go to state 1
+
+state 1
+
+    (0) S' -> statement .
+
+
+
+state 2
+
+    (1) statement -> SELECT . ID FROM ID WHERE expression
+
+    ID              shift and go to state 6
+
+
+state 3
+
+    (2) statement -> INSERT . INTO ID VALUES expression
+
+    INTO            shift and go to state 7
+
+
+state 4
+
+    (3) statement -> UPDATE . ID SET ID VALUES expression
+
+    ID              shift and go to state 8
+
+
+state 5
+
+    (4) statement -> DELETE . FROM ID WHERE expression
+
+    FROM            shift and go to state 9
+
+
+state 6
+
+    (1) statement -> SELECT ID . FROM ID WHERE expression
+
+    FROM            shift and go to state 10
+
+
+state 7
+
+    (2) statement -> INSERT INTO . ID VALUES expression
+
+    ID              shift and go to state 11
+
+
+state 8
+
+    (3) statement -> UPDATE ID . SET ID VALUES expression
+
+    SET             shift and go to state 12
+
+
+state 9
+
+    (4) statement -> DELETE FROM . ID WHERE expression
+
+    ID              shift and go to state 13
+
+
+state 10
+
+    (1) statement -> SELECT ID FROM . ID WHERE expression
+
+    ID              shift and go to state 14
+
+
+state 11
+
+    (2) statement -> INSERT INTO ID . VALUES expression
+
+    VALUES          shift and go to state 15
+
+
+state 12
+
+    (3) statement -> UPDATE ID SET . ID VALUES expression
+
+    ID              shift and go to state 16
+
+
+state 13
+
+    (4) statement -> DELETE FROM ID . WHERE expression
+
+    WHERE           shift and go to state 17
+
+
+state 14
+
+    (1) statement -> SELECT ID FROM ID . WHERE expression
+
+    WHERE           shift and go to state 18
+
+
+state 15
+
+    (2) statement -> INSERT INTO ID VALUES . expression
+    (5) expression -> . ID
+    (6) expression -> . NUMBER
+    (7) expression -> . STRING
+
+    ID              shift and go to state 19
+    NUMBER          shift and go to state 21
+    STRING          shift and go to state 22
+
+    expression                     shift and go to state 20
+
+state 16
+
+    (3) statement -> UPDATE ID SET ID . VALUES expression
+
+    VALUES          shift and go to state 23
+
+
+state 17
+
+    (4) statement -> DELETE FROM ID WHERE . expression
+    (5) expression -> . ID
+    (6) expression -> . NUMBER
+    (7) expression -> . STRING
+
+    ID              shift and go to state 19
+    NUMBER          shift and go to state 21
+    STRING          shift and go to state 22
+
+    expression                     shift and go to state 24
+
+state 18
+
+    (1) statement -> SELECT ID FROM ID WHERE . expression
+    (5) expression -> . ID
+    (6) expression -> . NUMBER
+    (7) expression -> . STRING
+
+    ID              shift and go to state 19
+    NUMBER          shift and go to state 21
+    STRING          shift and go to state 22
+
+    expression                     shift and go to state 25
+
+state 19
+
+    (5) expression -> ID .
+
+    $end            reduce using rule 5 (expression -> ID .)
+
+
+state 20
+
+    (2) statement -> INSERT INTO ID VALUES expression .
+
+    $end            reduce using rule 2 (statement -> INSERT INTO ID VALUES expression .)
+
+
+state 21
+
+    (6) expression -> NUMBER .
+
+    $end            reduce using rule 6 (expression -> NUMBER .)
+
+
+state 22
+
+    (7) expression -> STRING .
+
+    $end            reduce using rule 7 (expression -> STRING .)
+
+
+state 23
+
+    (3) statement -> UPDATE ID SET ID VALUES . expression
+    (5) expression -> . ID
+    (6) expression -> . NUMBER
+    (7) expression -> . STRING
+
+    ID              shift and go to state 19
+    NUMBER          shift and go to state 21
+    STRING          shift and go to state 22
+
+    expression                     shift and go to state 26
+
+state 24
+
+    (4) statement -> DELETE FROM ID WHERE expression .
+
+    $end            reduce using rule 4 (statement -> DELETE FROM ID WHERE expression .)
+
+
+state 25
+
+    (1) statement -> SELECT ID FROM ID WHERE expression .
+
+    $end            reduce using rule 1 (statement -> SELECT ID FROM ID WHERE expression .)
+
+
+state 26
+
+    (3) statement -> UPDATE ID SET ID VALUES expression .
+
+    $end            reduce using rule 3 (statement -> UPDATE ID SET ID VALUES expression .)
+

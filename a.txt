@@ -1,0 +1,67 @@
+import ply.lex as lex
+
+# Lista de nombres de tokens
+tokens = (
+    'SELECT',
+    'INSERT',
+    'UPDATE',
+    'DELETE',
+    'FROM',
+    'INTO',
+    'VALUES',
+    'SET',
+    'WHERE',
+    'ID',
+    'NUMBER',  # Nuevo token para representar números
+    'STRING',  # Nuevo token para representar cadenas de texto
+)
+
+# Palabras reservadas
+reserved = {
+    'SELECCIONAR': 'SELECT',
+    'INSERTAR': 'INSERT',
+    'ACTUALIZAR': 'UPDATE',
+    'ELIMINAR': 'DELETE',
+    'DESDE': 'FROM',
+    'EN': 'INTO',
+    'VALORES': 'VALUES',
+    'ESTABLECER': 'SET',
+    'DONDE': 'WHERE',
+}
+
+# Definición de tokens
+t_SELECT = r'SELECCIONAR'
+t_INSERT = r'INSERTAR'
+t_UPDATE = r'ACTUALIZAR'
+t_DELETE = r'ELIMINAR'
+t_FROM = r'DESDE'
+t_INTO = r'EN'
+t_VALUES = r'VALORES'
+t_SET = r'ESTABLECER'
+t_WHERE = r'DONDE'
+
+def t_ID(t):
+    r'[a-zA-Z_][a-zA-Z0-9_]*'
+    t.type = reserved.get(t.value, 'ID')
+    return t
+
+def t_NUMBER(t):
+    r'\d+'  # Reconocer números enteros
+    t.value = int(t.value)
+    return t
+
+def t_STRING(t):
+    r'\'[^\']*\'|\"[^\"]*\"'  # Reconocer cadenas de texto entre comillas simples o dobles
+    t.value = t.value[1:-1]
+    return t
+
+# Expresiones regulares para símbolos
+t_ignore = ' \n\t'
+t_ignore_COMMENT = r'\#.*'
+
+def t_error(t):
+    print("Carácter ilegal '%s'" % t.value[0])
+    t.lexer.skip(1)
+
+# Construir el lexer
+lexer = lex.lex()
